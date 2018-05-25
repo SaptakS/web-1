@@ -11,7 +11,13 @@
   -webkit-appearance: none;
 }
 
-.button:hover {
+.button.secondary{
+  padding: 8px 18px;
+  background-color: #fff;
+}
+
+.button:hover,
+.button.secondary:hover {
   color: #fff;
   text-decoration: none;
 }
@@ -33,4 +39,13 @@
 
 .button--primary:active {
   background-color: #1B0050;
+}
+
+.button--primary.secondary {
+  border: 1px solid rgba(79, 79, 79, 0.26);;
+  color: rgba(79, 79, 79, 0.26);;
+}
+
+.button--warning{
+  background-color: #ca001a;
 }

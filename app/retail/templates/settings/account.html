@@ -12,6 +12,9 @@
   .major_button_container input.warning{
     background-color: #ca001a;
   }
+  #delete-confirm {
+    margin-left: 20px;
+  }
 </style>
   <div class="form-group">
     <h5>{% trans "Account Settings" %}</h5>
@@ -41,12 +44,36 @@
 {% block scripts %}
 <script>
   $(document).ready(function(){
-    $("#delete").submit(function(e){
-      var _continue = confirm("Are you sure you want to delete all of your data from Gitcoin?");
-      if(!_continue){
-        e.preventDefault()
-        return;
-      }
+    $("#delete input[name=delete]").on('click', function(e){
+      e.preventDefault();
+
+      var content = $.parseHTML(
+        '<div><div class="row">' +
+          '<div class="col-12 closebtn">' +
+            '<a rel="modal:close" href="javascript:void" class="close" aria-label="Close dialog">' +
+              '<span aria-hidden="true">&times;</span>' +
+            '</a>' +
+          '</div>' +
+          '<div class="col-12 pt-2 pb-2 text-center">' +
+            '<h2 class="font-title">' + gettext(' Are you sure you want to delete all of your data from Gitcoin?') + '</h2>' +
+          '</div>' +
+          '<div class="col-12 pt-2 pb-2 font-body">' +
+            '<p>' + gettext('Please keep in mind that deleting your Gitcoin account is permanent and will removed all of ' +
+              'your data associated with bounties completed or funded on the Gitcoin platform.') + '</p>' +
+          '</div>' +
+          '<div class="col-12 mt-4 mb-2 text-right font-caption">' +
+            '<a rel="modal:close" href="javascript:void" aria-label="Close dialog" class="button button--primary secondary">Cancel</a>' +
+            '<a id="delete-confirm" href="javascript:void" aria-label="Close dialog" class="button button--warning">Delete My Data</a>' +
+          '</div>' +
+        '</div></div>'
+      );
+      var modal = $(content).appendTo('body').modal({
+        modalClass: 'modal delete_account_modal'
+      });
+    });
+
+    $(document).on('click', '#delete-confirm', function() {
+      $('#delete').submit();
     });
   });
 </script>
