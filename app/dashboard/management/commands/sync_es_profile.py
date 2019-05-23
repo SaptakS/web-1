@@ -18,6 +18,7 @@
 import time
 
 from django.core.management.base import BaseCommand
+
 # https://github.com/gitcoinco/web/issues/4424
 
 class Command(BaseCommand):
